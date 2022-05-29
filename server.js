@@ -1,5 +1,6 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+require('dotenv').config()
 const app = express();
 
 const indexRouter = require('./routes/index')
@@ -11,7 +12,7 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 
 const mongoose = require('mongoose')
-mongoose.connect("mongodb://localhost/mybrary", { useNewUrlParser: true })
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.on('open', () => console.log('Connected to mongoose'))
